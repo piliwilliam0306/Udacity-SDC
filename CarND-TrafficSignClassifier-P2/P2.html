@@ -11838,8 +11838,8 @@ X_test, y_test = test[&#39;features&#39;], test[&#39;labels&#39;]
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 80 ms, sys: 168 ms, total: 248 ms
-Wall time: 115 ms
+<pre>CPU times: user 116 ms, sys: 208 ms, total: 324 ms
+Wall time: 382 ms
 </pre>
 </div>
 </div>
@@ -11908,6 +11908,7 @@ test_labels, test_counts = np.unique(y_test, return_counts=True)
 n_classes = len(train_labels)
 
 print(&quot;Number of training examples =&quot;, n_train)
+print(&quot;Number of validation examples =&quot;, n_validation)
 print(&quot;Number of testing examples =&quot;, n_test)
 print(&quot;Image data shape =&quot;, image_shape)
 print(&quot;Number of classes =&quot;, n_classes)
@@ -11926,10 +11927,11 @@ print(&quot;Number of classes =&quot;, n_classes)
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Number of training examples = 34799
+Number of validation examples = 4410
 Number of testing examples = 12630
 Image data shape = (32, 32, 3)
 Number of classes = 43
-CPU times: user 4 ms, sys: 0 ns, total: 4 ms
+CPU times: user 0 ns, sys: 0 ns, total: 0 ns
 Wall time: 1.86 ms
 </pre>
 </div>
@@ -22686,8 +22688,7 @@ Wall time: 202 ms
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">time</span>
-global best_validation_accuracy
-best_validation_accuracy = 0.0
+
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     num_examples = len(X_train_prep)
