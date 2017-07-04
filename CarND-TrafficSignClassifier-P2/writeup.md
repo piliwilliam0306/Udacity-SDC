@@ -155,16 +155,16 @@ Here are the results of the prediction:
 |:---------------------:|:---------------------------------------------:| 
 | Priority road      		| Priority road   									| 
 | Stop     			| Stop 										|
-| No vehicles					| No vehicles											|
+| No vehicles					| Yield											|
 | Bumpy road	      		| Bumpy Road					 				|
-| Road	narrows on the right		| Road	narrows on the right      							|
+| Road	narrows on the right		| Pedestrians      							|
 | Traffic signals		| Traffic signals      							|
 | Wild animals crossing		| Wild animals crossing      							|
 | Go straight or left		| Go straight or left      							|
 | End of no passing		| End of no passing      							|
 
-* The model was able to correctly guess 9 of the 9 traffic signs, which gives an accuracy of 100%. 
-* Compare with test set result, the new images from web performs better since the images were pretty clear.
+* The model was able to correctly guess 7 of the 9 traffic signs, which gives an accuracy of 78%. 
+* Some of the images are difficult to classify. Some traffic signs had wrong prediction and some had low confidence even it predicted the right class. This could be improved by balancing the dataset and add more data for training.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
