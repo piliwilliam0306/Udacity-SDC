@@ -29,6 +29,8 @@ The goals / steps of this project are the following:
 [image13]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-TrafficSignClassifier-P2/writeup_images/wild-animals-crossing.png
 [image14]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-TrafficSignClassifier-P2/writeup_images/go-straight-or-left.png
 [image15]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-TrafficSignClassifier-P2/writeup_images/end-of-no-passing.png
+[image16]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-TrafficSignClassifier-P2/writeup_images/normalize.png
+[image17]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-TrafficSignClassifier-P2/writeup_images/sermanet.jpg
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -68,6 +70,9 @@ Here is an exploratory visualization of the data set:
 ##### Pre-processing:
 * Since recognizing traffic signs does not require color information, I first converted RGB images to grayscale, which then normalized to scale 0 to 1. 
 * By doing so, we should get zero mean and equal variance which helps when performing gradient descent optimization. 
+
+![alt text][image16]
+
 * Furthermore, I applied localized histogram equalization (CLAHE) which improves feature extraction.
 
 Here is an example of a traffic sign image before and after grayscaling and normalization:
@@ -78,7 +83,7 @@ Here is an example of a traffic sign image before and after grayscaling and norm
 
 ##### Image Augmentation:
 
-* In order to prevent overfitting, I have decided generate addtional data such as rotating, shifting, shearing and zooming of the original images with the help of Keras ImageDataGenerator class.
+* In order to prevent overfitting, I have decided to generate addtional data such as rotating, shifting, shearing and zooming of the original images with the help of Keras ImageDataGenerator class.
 * Image blur technique was also used to generate more data.
 * Save all preprocessed and agumentated images as pickle file for training.
 
@@ -122,18 +127,16 @@ My final model results were:
 * validation set accuracy of 0.971
 * test set accuracy of 0.967
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+The network architecture I used was the [Traffic Sign Recognition with Multi-Scale Convolutional Networks](http://yann.lecun.com/exdb/publis/pdf/sermanet-ijcnn-11.pdf) which mentioned in the ipynb Udacity provided.
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
- 
+![alt text][image17]
+
+The performance of such architecture was convining since the author achieved result of 99.17% which is better than human.
+
+The difference of of the architecture between mine and [Sermanet](http://yann.lecun.com/exdb/publis/pdf/sermanet-ijcnn-11.pdf) are:
+1. One less convolution layer which reduces amount of parameters for training.
+2. Using ReLU activation function which is commonly used recently instead of tanh.
+3. Adding Dropping and L2 regularization to prevent overfitting.
 
 ### Test a Model on New Images
 
