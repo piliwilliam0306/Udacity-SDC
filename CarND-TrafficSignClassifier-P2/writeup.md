@@ -164,7 +164,8 @@ Here are the results of the prediction:
 | End of no passing		| End of no passing      							|
 
 * The model was able to correctly guess 7 of the 9 traffic signs, which gives an accuracy of 78%. 
-* Some of the images are difficult to classify. Some traffic signs had wrong prediction and some had low confidence even it predicted the right class. This could be improved by balancing the dataset and add more data for training.
+* Some of the images are difficult to classify since they have been captured from different angle and there were words on top of them. 
+* Some traffic signs had wrong prediction and some had low confidence even it predicted the right class. This could be improved by balancing the dataset and add more data for training.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
