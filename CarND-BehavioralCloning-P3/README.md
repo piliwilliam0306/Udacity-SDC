@@ -1,5 +1,12 @@
 # Behavioral-Cloning
 
+## track1
+[![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/track1.jpg)](https://youtu.be/QD3XZWLz20Q)
+
+
+## track1 after cropped
+[![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/crop1.jpg)](https://youtu.be/f0kbahx3TVw)
+
 ## Getting Udacity Self-Driving Car Simulator
 ```
 $ wget https://d17h27t6h515a5.cloudfront.net/topher/2016/November/5831f0f7_simulator-linux/simulator-linux.zip
