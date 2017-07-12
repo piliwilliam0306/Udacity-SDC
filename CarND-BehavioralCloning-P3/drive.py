@@ -52,8 +52,7 @@ def CropImage(image):
     return image[66:135, 0:319]
 
 def ResizeImage(image):
-    return cv2.resize(CropImage(image), (64, 14), cv2.INTER_AREA)
-    #return cv2.resize(CropImage(image), (32, 7), cv2.INTER_AREA)
+    return cv2.resize(CropImage(image), (32, 14), cv2.INTER_AREA)
 
 def RGB_to_S(image):
     return cv2.cvtColor(image, cv2.COLOR_RGB2HSV)[:,:,1]
@@ -74,7 +73,7 @@ def telemetry(sid, data):
         resized_image = ResizeImage(image_array)
 
         S_image = RGB_to_S(resized_image)
-        S_image_array = S_image.reshape(1, 14, 64, 1)
+        S_image_array = S_image.reshape(1, 14, 32, 1)
         steering_angle = float(model.predict(S_image_array, batch_size=1))
         #steering_angle = float(model.predict(image_array[None, :, :, :], batch_size=1))
 
