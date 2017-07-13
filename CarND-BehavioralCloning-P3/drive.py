@@ -11,6 +11,7 @@ import eventlet.wsgi
 from PIL import Image
 from flask import Flask
 from io import BytesIO
+import time
 
 from keras.models import load_model
 import h5py
@@ -45,6 +46,7 @@ class SimplePIController:
 
 controller = SimplePIController(0.1, 0.002)
 set_speed = 29
+#set_speed = 25
 controller.set_desired(set_speed)
 
 
@@ -60,6 +62,7 @@ def RGB_to_S(image):
 @sio.on('telemetry')
 def telemetry(sid, data):
     if data:
+        tStart = time.time()
         # The current steering angle of the car
         steering_angle = data["steering_angle"]
         # The current throttle of the car
@@ -81,7 +84,8 @@ def telemetry(sid, data):
 
         print(steering_angle, throttle)
         send_control(steering_angle, throttle)
-
+        tTook = time.time()-tStart
+        print('time took: {}'.format(tTook))
         # save frame
         if args.image_folder != '':
             timestamp = datetime.utcnow().strftime('%Y_%m_%d_%H_%M_%S_%f')[:-3]
