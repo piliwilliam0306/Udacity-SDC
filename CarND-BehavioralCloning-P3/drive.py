@@ -90,8 +90,10 @@ def telemetry(sid, data):
         if args.image_folder != '':
             timestamp = datetime.utcnow().strftime('%Y_%m_%d_%H_%M_%S_%f')[:-3]
             image_filename = os.path.join(args.image_folder, timestamp)
-            cropped_img = CropImage(image_array)
-            im = Image.fromarray(cropped_img)
+            #cropped_img = CropImage(image_array)
+            #im = Image.fromarray(cropped_img)
+            im = Image.fromarray(resized_image)
+            #im = Image.fromarray(S_image)
             im.save('{}.jpg'.format(image_filename))
 	    
     else:

@@ -7,14 +7,15 @@ from sklearn.utils import shuffle
 from keras.models import *
 from keras.layers import *
 from keras.optimizers import Adam
-from keras.utils.visualize_util import plot
+#from keras.utils import plot_model
+#from keras.utils.vis_utils import model_to_dot
 
 #preprocessed training data
 train_file = 'train.p'
 
 #batch size and epoch
 batch_size=128
-nb_epoch=25
+epochs=25
 
 if __name__ == '__main__':
 
@@ -41,7 +42,7 @@ if __name__ == '__main__':
 		])
 
 	model.summary()
-	plot(model, to_file='model.png', show_shapes = True)
+	#plot_model(model, to_file='model.png', show_shapes = True)
 	earlyStopping=keras.callbacks.EarlyStopping(monitor='val_loss', 
                                             patience=2, min_delta=0.0001, 
                                             verbose=0, mode='auto')
@@ -49,7 +50,7 @@ if __name__ == '__main__':
 
 	model.compile(loss='mse',optimizer=Adam(lr=1e-3))
 	history = model.fit(X_train, y_train,batch_size=batch_size, 
-						nb_epoch=nb_epoch, verbose=1, 
+						epochs=epochs, verbose=1, 
 						validation_data=(X_val, y_val),
 						callbacks=[earlyStopping])
 
