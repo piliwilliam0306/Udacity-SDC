@@ -1,14 +1,14 @@
 # Behavioral-Cloning
 
 ## track1 from unity
-[![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/unity1.png)](https://youtu.be/VQZATIY1eAA)
+[![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/unity1.png)](https://youtu.be/suB09shs-Dg)
 
 ## track1 center view
-[![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/track1.jpg)](https://youtu.be/QD3XZWLz20Q)
+[![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/original.gif)](https://youtu.be/1vZ01dx5Xm4)
 
 
 ## track1 after cropped
-[![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/crop1.jpg)](https://youtu.be/f0kbahx3TVw)
+[![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/crop.gif)](https://youtu.be/bFymz0zy-18)
 
 ## Getting Udacity Self-Driving Car Simulator
 ```
