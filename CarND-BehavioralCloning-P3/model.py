@@ -7,8 +7,8 @@ from sklearn.utils import shuffle
 from keras.models import *
 from keras.layers import *
 from keras.optimizers import Adam
-#from keras.utils import plot_model
-#from keras.utils.vis_utils import model_to_dot
+from keras.utils import plot_model
+from keras.utils.vis_utils import model_to_dot
 
 #preprocessed training data
 train_file = 'train.p'
@@ -34,8 +34,8 @@ if __name__ == '__main__':
 
 	model = Sequential([
 			Lambda(lambda x: x/127.5 - 1.,input_shape=(14, 32, 1)),
-			Conv2D(2, 3, 3, border_mode='valid', input_shape=(14, 32, 1), activation='relu'),
-			MaxPooling2D((5, 5),(4, 4),'valid'),
+			Conv2D(1, 1, 1, border_mode='valid', input_shape=(14, 32, 1), activation='relu'),
+			MaxPooling2D((4, 4),(4, 4),'valid'),
 			Dropout(0.25),
 			Flatten(),
 			Dense(1)
@@ -43,6 +43,7 @@ if __name__ == '__main__':
 
 	model.summary()
 	#plot_model(model, to_file='model.png', show_shapes = True)
+	
 	earlyStopping=keras.callbacks.EarlyStopping(monitor='val_loss', 
                                             patience=2, min_delta=0.0001, 
                                             verbose=0, mode='auto')
@@ -61,3 +62,4 @@ if __name__ == '__main__':
 		json_file.write(model.to_json())
 
 	print("Model Saved.")
+	
