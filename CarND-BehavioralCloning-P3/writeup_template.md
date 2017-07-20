@@ -96,6 +96,10 @@ $ wget -nc "https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_
 
 ### Model Architecture and Training Strategy
 
+#### 1. Splitting data
+* Before training, 85% and 15% of the data were split for training and validation.
+
+#### 2. Model Architecture
 * Although the model most commonly used for self-driving application are the Nvidia and the Comma.ai model, it was more than what we need for our lane following application.
 * My goal is to create a small network which can deploy on robots with embedded system, so I have created a model as follows:
 
@@ -105,6 +109,7 @@ $ wget -nc "https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_
 * The data then feed in a convolution layer which consists a filter with size 1X1, valid padding, and RELU activation function to introduce nonlinearity.
 * I then added a pooling layer with size 4X4 and stride of 4.
 * Fraction of 0.25 dropout layer and early stopping were then introduced to prevent over fitting.
+* An Adam optimizer with learning rate of 1e-3 was used for training.
 * The model was created through reducing the window and filter size while tested through the simulator and ensuring that the vehicle could stay on the track.
 * This network had total 27 parameters which is very efficient for training and deploy on embedded systems.
 
@@ -114,29 +119,31 @@ $ wget -nc "https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_
 
 ### Final results
 
-#### Track1 from unity
+#### 1. Track1 from unity
 [![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/unity1.png)](https://youtu.be/suB09shs-Dg)
 
-#### Track1 center view
+#### 2. Track1 center view
 [![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/original.gif)](https://youtu.be/1vZ01dx5Xm4)
 
-#### Track1 after cropped
+#### 3. Track1 after cropped
 [![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/crop.gif)](https://youtu.be/bFymz0zy-18)
 
 ### Visualize attention
+* With the help of [keras-vis](https://github.com/raghakot/keras-vis) library, we can see the important part which the network makes the steering angle decision:
 
 ![alt text][image7]
 ![alt text][image8]
 ![alt text][image9]
 
+### Additional notes
 
-## Getting Udacity Self-Driving Car Simulator
+#### 1. Getting Udacity Self-Driving Car Simulator
 ```
 $ wget https://d17h27t6h515a5.cloudfront.net/topher/2016/November/5831f0f7_simulator-linux/simulator-linux.zip
 $ wget https://d17h27t6h515a5.cloudfront.net/topher/2017/February/58983558_beta-simulator-linux/beta-simulator-linux.zip
 ```
 
-## Removing annoying Unity logs
+#### 2. Removing annoying Unity logs
 ```
 $ rm /home/ar/.config/unity3d/Udacity/self_driving_car_nanodegree_program/Player.log
 ```
