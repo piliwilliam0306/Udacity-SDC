@@ -23,7 +23,6 @@ The goals / steps of this project are the following:
 [image7]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/left.png
 [image8]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/center.png
 [image9]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/right.png
-[image10]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/model.png "Model"
 [image11]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/sterring_angle.png "steering"
 [image12]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/zeros.png "zeros"
 [image13]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/shifted_data.png "shifted"
@@ -93,58 +92,25 @@ $ wget -nc "https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_
 
 ![alt text][image6]
 
+* Finally, save the preprocessed and augmented data as pickle file.
 
 ### Model Architecture and Training Strategy
 
-#### 1. An appropriate model architecture has been employed
-
-* My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
-
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
-
-#### 2. Attempts to reduce overfitting in the model
-
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
-early stopping
-
-The model was trained and validated on different data sets to ensure that the model was not overfitting. The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
-
-#### 3. Model parameter tuning
-
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
-
-#### 4. Appropriate training data
-
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
-
-For details about how I created the training data, see the next section. 
-
-
-
-### Model Architecture and Training Strategy
-
-#### 1. Solution Design Approach
-
-
-#### 2. Final Model Architecture
-
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
-
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
-
-
-
-#### 3. Creation of the Training Set & Training Process
-
-
+* Although the model most commonly used for self-driving application are the Nvidia and the Comma.ai model, it was more than what we need for our lane following application.
+* My goal is to create a small network which can deploy on robots with embedded system, so I have created a model as follows:
 
 ![alt text][image3]
+
+* Data is first normalized in the model using a Keras lambda layer.
+* The data then feed in a convolution layer which consists a filter with size 1X1, valid padding, and RELU activation function to introduce nonlinearity.
+* I then added a pooling layer with size 4X4 and stride of 4.
+* Fraction of 0.25 dropout layer and early stopping were then introduced to prevent over fitting.
+* The model was created through reducing the window and filter size while tested through the simulator and ensuring that the vehicle could stay on the track.
+* This network had total 27 parameters which is very efficient for training and deploy on embedded systems.
+
+### Training history visualization
+
 ![alt text][image4]
-
-
-
-![alt text][image10]
-![alt text][image11]
 
 ### Final results
 
