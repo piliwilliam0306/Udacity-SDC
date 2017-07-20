@@ -25,6 +25,9 @@ The goals / steps of this project are the following:
 [image9]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/right.png
 [image10]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/model.png "Model"
 [image11]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/sterring_angle.png "steering"
+[image12]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/zeros.png "zeros"
+[image13]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/shifted_data.png "steering"
+
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -49,6 +52,41 @@ python drive.py model.h5
 #### 3. Submission code is usable and readable
 * Here is the link to my [project notebook](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/P3.ipynb), which shows the pipeline for data preprocess, augmentation, and network training.
 * The model.py file contains the code for loading pickle file, training, and saving the convolution neural network.
+
+### Data Preprocessing
+
+#### 1. Collecting Data 
+
+* Getting training data from Udacity
+```
+$ wget -nc "https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_data/data.zip"
+```
+#### 2. Visualize Data Distribution
+
+![alt text][image1]
+
+* From this plot, we can see that we have a lot more zero degree steering angle than others.
+* In order to balance out the dataset, I have decided to drop 90% of the zero degree.
+
+![alt text][image12]
+
+* Since Udacity provide 3 cameras on car, shifting the left image by 0.25 and right image by -0.25 allows us to extend the training data.
+
+![alt text][image13]
+
+* We then can further extend the data by flipping the images and steering angle to further extending the training data.
+* Eventually we drop any steering angle which has more than 400 counts to balance the data.
+![alt text][image2]
+
+#### 3. Image augmentation and visualization
+
+![alt text][image11]
+
+![alt text][image5]
+
+![alt text][image6]
+
+#### 4. Saving preprocessed data as pickle file
 
 ### Model Architecture and Training Strategy
 
@@ -88,18 +126,16 @@ The final model architecture (model.py lines 18-24) consisted of a convolution n
 
 Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
 
-![alt text][image1]
+
 
 #### 3. Creation of the Training Set & Training Process
 
-![alt text][image2]
+
 
 ![alt text][image3]
 ![alt text][image4]
 
 
-![alt text][image5]
-![alt text][image6]
 
 ![alt text][image10]
 ![alt text][image11]
@@ -120,3 +156,15 @@ Here is a visualization of the architecture (note: visualizing the architecture 
 ![alt text][image7]
 ![alt text][image8]
 ![alt text][image9]
+
+
+## Getting Udacity Self-Driving Car Simulator
+```
+$ wget https://d17h27t6h515a5.cloudfront.net/topher/2016/November/5831f0f7_simulator-linux/simulator-linux.zip
+$ wget https://d17h27t6h515a5.cloudfront.net/topher/2017/February/58983558_beta-simulator-linux/beta-simulator-linux.zip
+```
+
+## Removing annoying Unity logs
+```
+$ rm /home/ar/.config/unity3d/Udacity/self_driving_car_nanodegree_program/Player.log
+```
