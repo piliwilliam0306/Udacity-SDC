@@ -5,11 +5,11 @@
 **Behavioral Cloning Project**
 
 The goals / steps of this project are the following:
-* Use the simulator to collect data of good driving behavior
-* Build, a convolution neural network in Keras that predicts steering angles from images
-* Train and validate the model with a training and validation set
-* Test that the model successfully drives around track one without leaving the road
-* Summarize the results with a written report
+* Use the simulator to collect data of good driving behavior.
+* Build, a convolution neural network in Keras that predicts steering angles from images.
+* Train and validate the model with a training and validation set.
+* Test that the model successfully drives around track one without leaving the road.
+* Summarize the results with a written report.
 
 
 [//]: # (Image References)
@@ -26,7 +26,7 @@ The goals / steps of this project are the following:
 [image10]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/model.png "Model"
 [image11]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/sterring_angle.png "steering"
 [image12]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/zeros.png "zeros"
-[image13]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/shifted_data.png "steering"
+[image13]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/shifted_data.png "shifted"
 
 
 ## Rubric Points
@@ -38,10 +38,10 @@ The goals / steps of this project are the following:
 #### 1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
 My project includes the following files:
-* model.py containing the script to create and train the model
-* drive.py for driving the car in autonomous mode
-* model.h5 containing a trained convolution neural network 
-* writeup_report.md or writeup_report.pdf summarizing the results
+* model.py containing the script to create and train the model.
+* drive.py for driving the car in autonomous mode.
+* model.h5 containing a trained convolution neural network.
+* writeup_report.md or writeup_report.pdf summarizing the results.
 
 #### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
@@ -50,7 +50,7 @@ python drive.py model.h5
 ```
 
 #### 3. Submission code is usable and readable
-* Here is the link to my [project notebook](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/P3.ipynb), which shows the pipeline for data preprocess, augmentation, and network training.
+* Here is the link to my [project notebook](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/P3.ipynb), which shows the pipeline for data preprocess, image augmentation, and network training.
 * The model.py file contains the code for loading pickle file, training, and saving the convolution neural network.
 
 ### Data Preprocessing
@@ -62,31 +62,37 @@ python drive.py model.h5
 $ wget -nc "https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_data/data.zip"
 ```
 #### 2. Visualize Data Distribution
+* Using df.hist() to plot:
 
 ![alt text][image1]
 
 * From this plot, we can see that we have a lot more zero degree steering angle than others.
-* In order to balance out the dataset, I have decided to drop 90% of the zero degree.
+* In order to balance out the dataset, I have used df.sample() function to randomly choose 90% of the zero degree steering angle then drop them from the dataframe with df.drop():
 
 ![alt text][image12]
 
-* Since Udacity provide 3 cameras on car, shifting the left image by 0.25 and right image by -0.25 allows us to extend the training data.
+* Since Udacity provide 3 cameras on car, shifting the left image by 0.25 and right image by -0.25 allows us to extend the training data:
 
 ![alt text][image13]
 
-* We then can further extend the data by flipping the images and steering angle to further extending the training data.
-* Eventually we drop any steering angle which has more than 400 counts to balance the data.
+* We can further extend the data by flipping the images and steering angle.
+* Eventually we drop any steering angle has more than 400 counts to balance the data which gives us total 23125 images for training:
+
 ![alt text][image2]
 
-#### 3. Image augmentation and visualization
+#### 3. Image augmentation
+* Visualize images with their corresponding angle:
 
 ![alt text][image11]
+
+* Our main task is to keep the car in the track in the simulator which is much simpler compare with real world application that require traffic sign recognition and decision making.
+* First, I cropped out the sky and the car from the images since we only need to focus on the track.
+* I then resized the image to 32X14 and using only saturation channel of the HSV color space which was enough to separate the road with others and reduce the image dimension:
 
 ![alt text][image5]
 
 ![alt text][image6]
 
-#### 4. Saving preprocessed data as pickle file
 
 ### Model Architecture and Training Strategy
 
