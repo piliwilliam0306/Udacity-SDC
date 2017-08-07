@@ -1,4 +1,4 @@
-## Writeup Template
+## Advanced Lane Finding 
 
 ---
 
@@ -93,7 +93,7 @@ The code for this step is contained in the Camera Calibration section of the IPy
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-* We then scan the resulting frame from bottom to top trying to isolate pixels that could be representing lane boundaries. What we are trying to detect is two lines that would make up lane boundaries. For each of those lines we have a set of windows. We scan the frame with those windows, collecting non-zero pixels within window bounds. Once we reach the top, we try to fit a second order polynomial into collected points. This polynomial coefficients would represent a single lane boundary.
+* We use sliding window to scan the image from bottom to top and collect non-zero pixels within window bound to isolate pixels that could represent lane boundaries. Once we finish scanning, we then fit a second order polynomial into collected points. This polynomial coefficients would represent a single lane boundary.
 
 ![alt text][image6]
 
@@ -103,11 +103,11 @@ The code for this step is contained in the Camera Calibration section of the IPy
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-
+* The code for calculating curvature and offset is in 124-145 in `lane_finding.py`
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-* Using 'perspect_tf()' and the inverse matrix we got earlier, we can warp back from bird-eye view to first-person view
+* Using 'perspect_tf()' and the inverse matrix we got earlier, we can warp back from bird-eye view to first-person view:
 
 ![alt text][image8]
 
@@ -117,7 +117,7 @@ The code for this step is contained in the Camera Calibration section of the IPy
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Below is the link to my video result.
+Below is the link to my video result:
 
 [![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-Advanced-Lane-Lines-P4/output_images/project_video.gif)](https://youtu.be/oSamJ6EsAiU)
 
