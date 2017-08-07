@@ -74,7 +74,7 @@ The code for this step is contained in the Camera Calibration section of the IPy
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-* I first chose the source and destination points:
+* I manually pin-pointed the source and destination points in the image, here are the coordinates I chose:
 
 | Source        | Destination   | 
 |:-------------:|:-------------:| 
@@ -83,7 +83,9 @@ The code for this step is contained in the Camera Calibration section of the IPy
 | 896, 675      | 896, 720      |
 | 384, 675      | 384, 720      |
 
-* The code for my perspective transform includes a function called `perspect_tf()`, which can 
+* First I used `cv2.getPerspectiveTransform()` function to find perspective transform matrix.
+
+* The code for my perspective transform includes a function called `perspect_tf()`, which can be used to warp the image to bird-eye view with the perspective transform matrix we got.
 
 * I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
@@ -91,9 +93,11 @@ The code for this step is contained in the Camera Calibration section of the IPy
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+* We then scan the resulting frame from bottom to top trying to isolate pixels that could be representing lane boundaries. What we are trying to detect is two lines that would make up lane boundaries. For each of those lines we have a set of windows. We scan the frame with those windows, collecting non-zero pixels within window bounds. Once we reach the top, we try to fit a second order polynomial into collected points. This polynomial coefficients would represent a single lane boundary.
 
 ![alt text][image6]
+
+* Once the lane was detected through the sliding window approach, we know where the lines are in one frame of video. We can then search in a margin around the previous line position in stead of blind search again.
 
 ![alt text][image7]
 
@@ -103,7 +107,7 @@ Then I did some other stuff and fit my lane lines with a 2nd order polynomial ki
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+* Using 'perspect_tf()' and the inverse matrix we got earlier, we can warp back from bird-eye view to first-person view
 
 ![alt text][image8]
 
@@ -112,9 +116,7 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 ### Pipeline (video)
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
-<!--
-Here's a [link to my video result](./project_video.mp4)
--->
+
 Below is the link to my video result.
 
 [![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-Advanced-Lane-Lines-P4/output_images/project_video.gif)](https://youtu.be/oSamJ6EsAiU)
@@ -125,4 +127,5 @@ Below is the link to my video result.
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+The biggest challenge for this project is to fine tune the threshold which can generalize for different weather condition or very sharp curves. For computer vision method, a better tuned parameter could help to make it more robust. However, I would love to try a deep learning approach inverted by Ford called [DeepLanes](https://news.developer.nvidia.com/ford-research-using-deep-learning-for-lane-detection/) to improve the robustness.
+
