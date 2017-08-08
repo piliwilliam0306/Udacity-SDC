@@ -1,4 +1,4 @@
-## Writeup Template
+## Advanced Lane Finding 
 
 ---
 
@@ -25,6 +25,7 @@ The goals / steps of this project are the following:
 [image6]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-Advanced-Lane-Lines-P4/output_images/sliding_window.png "Window"
 [image7]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-Advanced-Lane-Lines-P4/output_images/margin_search.png "Margin"
 [image8]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-Advanced-Lane-Lines-P4/output_images/final.png "Final"
+[image9]: https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-Advanced-Lane-Lines-P4/output_images/undistorted.png "Undistorted"
 
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -45,9 +46,9 @@ You're reading it!
 
 The code for this step is contained in the Camera Calibration section of the IPython notebook located [here](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-Advanced-Lane-Lines-P4/P4.ipynb)
 
-I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
+* I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
 
-I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
+* I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function: 
 
 ![alt text][image1]
 
@@ -55,8 +56,8 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 #### 1. Provide an example of a distortion-corrected image.
 
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
-
+* I applied the camera calibration and distortion coefficients we computed earlier and use `cv2.undistort()` function to undistort the image:
+![alt text][image9]
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
@@ -73,9 +74,7 @@ To demonstrate this step, I will describe how I apply the distortion correction 
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
-
-This resulted in the following source and destination points:
+* I manually pin-pointed the source and destination points in the image, here are the coordinates I chose:
 
 | Source        | Destination   | 
 |:-------------:|:-------------:| 
@@ -84,25 +83,31 @@ This resulted in the following source and destination points:
 | 896, 675      | 896, 720      |
 | 384, 675      | 384, 720      |
 
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
+* First I used `cv2.getPerspectiveTransform()` function to find perspective transform matrix.
+
+* The code for my perspective transform includes a function called `perspect_tf()`, which can be used to warp the image to bird-eye view with the perspective transform matrix we got.
+
+* I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
 ![alt text][image5]
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+* We use sliding window to scan the image from bottom to top and collect non-zero pixels within window bound to isolate pixels that could represent lane boundaries. Once we finish scanning, we then fit a second order polynomial into collected points. This polynomial coefficients would represent a single lane boundary.
 
 ![alt text][image6]
+
+* Once the lane was detected through the sliding window approach, we know where the lines are in one frame of video. We can then search in a margin around the previous line position in stead of blind search again.
 
 ![alt text][image7]
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-
+* The code for calculating curvature and offset is in 124-145 in `lane_finding.py`
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+* Using 'perspect_tf()' and the inverse matrix we got earlier, we can warp back from bird-eye view to first-person view:
 
 ![alt text][image8]
 
@@ -111,10 +116,8 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 ### Pipeline (video)
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
-<!--
-Here's a [link to my video result](./project_video.mp4)
--->
-Below is the link to my video result.
+
+Below is the link to my video result:
 
 [![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-Advanced-Lane-Lines-P4/output_images/project_video.gif)](https://youtu.be/oSamJ6EsAiU)
 
@@ -124,4 +127,5 @@ Below is the link to my video result.
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+The biggest challenge for this project is to fine tune the threshold which can generalize for different weather condition or very sharp curves. For computer vision method, a better tuned parameter could help to make it more robust. However, I would love to try a deep learning approach inverted by Ford called [DeepLanes](https://news.developer.nvidia.com/ford-research-using-deep-learning-for-lane-detection/) to improve the robustness.
+
