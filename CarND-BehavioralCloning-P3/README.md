@@ -120,7 +120,7 @@ $ wget -nc "https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_
 ### Final results
 
 #### 1. Track1 from unity
-[![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/unity1.png)](https://youtu.be/suB09shs-Dg)
+[![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/unity.gif)](https://youtu.be/suB09shs-Dg)
 
 #### 2. Track1 center view
 [![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-BehavioralCloning-P3/images/original.gif)](https://youtu.be/1vZ01dx5Xm4)
