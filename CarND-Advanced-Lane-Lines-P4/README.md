@@ -119,8 +119,18 @@ The code for this step is contained in the Camera Calibration section of the IPy
 
 Below is the link to my video result:
 
-[![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-Advanced-Lane-Lines-P4/output_images/project_video.gif)](https://youtu.be/oSamJ6EsAiU)
+<p align="center"> 
+  <img src="https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-Advanced-Lane-Lines-P4/output_images/warped_gif.gif" width="280"/>
+  <img src="https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-Advanced-Lane-Lines-P4/output_images/search_fit_gif.gif" width="280"/>
+  <img src="https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-Advanced-Lane-Lines-P4/output_images/bird_eye_gif.gif" width="280"/>
+</p>
 
+<p align="center"> 
+  <img src="https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-Advanced-Lane-Lines-P4/output_images/project_video.gif" width="900"/>
+</p>
+<!--
+[![IMAGE ALT TEXT HERE](https://github.com/piliwilliam0306/Udacity-SDC/blob/master/CarND-Advanced-Lane-Lines-P4/output_images/project_video.gif)](https://youtu.be/oSamJ6EsAiU)
+-->
 ---
 
 ### Discussion
